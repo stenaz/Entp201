@@ -8,8 +8,9 @@ const path = require("path");
 const fs = require("fs");
 const app = express();
 
-const publicPath = path.resolve(__dirname, "public");
-app.use(express.static(publicPath));
+const apiRouter = require('./server/index.js');
+app.use('index', apiRouter); //puts specific middleware functions at specified path
+app.use(express.static('components'));
 
 
 

@@ -17,6 +17,14 @@ const db = mysql.createConnection({
     database: "profile",
 });
 
+// router.get('/data', (req, res) =>{
+//     const data = {
+//         message: "Hello from the server"
+//     };
+//     res.json(data);
+// });
+// module.exports = router;
+
 //router for obtaining all user information
 app.get("/users", (req, res) =>{
     let sqlquery = "Select * from user";
@@ -28,6 +36,7 @@ app.get("/users", (req, res) =>{
     })
 });
 //localhost:3000/deleteuser/1
+//router for deleting user information
 app.get("/deleteuser/:ids", (req, res) =>{
     let sqlquery = `Delete From user where id = ${req.params.ids}`;
     let query = db.query(sqlquery, err => {
