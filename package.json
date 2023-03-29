@@ -1,0 +1,19 @@
+{
+  "name": "entp201",
+  "version": "1.0.0",
+  "description": "To gain more experience using Node.js and Express, Ajax.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stenaz/Entp201.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stenaz/Entp201/issues"
+  },
+  "homepage": "https://github.com/stenaz/Entp201#readme"
+}
