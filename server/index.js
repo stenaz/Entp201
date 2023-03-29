@@ -1,23 +1,43 @@
 const express = require("express");
-const mysql = require('mysql');
+const path = require("path");
+const fs = require("fs");
+const app = express();
+const mysql = require("mysql");
 
-require('dotenv').config();
-const connection = mysql.createConnection({
-    host: 'localhost',
+require("dotenv").config();
+const port = process.env.Port || 3000; //setting static port value (3,000)
+var router = express.Router();
+var cors = require("cors");
+
+const db = mysql.createConnection({
+    host: "localhost",
     port: 3306,
-    user: 'root',
-    password: process.env.DB_PASSWORD
-    // database: 'test'
-
+    user: "root",
+    password: process.env.DB_PASSWORD,
+    database: "profile",
 });
 
-connection.connect(function(err){
-    if(err){
-        console.log("Error while connecting");
-        console.log(err);
+//router for obtaining all user information
+app.get("/users", (req, res) =>{
+    let sqlquery = "Select * from user";
+    db.query(sqlquery, (err, results) =>{
+        if(err){
+            throw err;
+        }
+        res.send(results);
+    })
+});
+//localhost:3000/deleteuser/1
+app.get("/deleteuser/:ids", (req, res) =>{
+    let sqlquery = `Delete From user where id = ${req.params.ids}`;
+    let query = db.query(sqlquery, err => {
+        if(err){
+            throw err;
+        }
+        res.send("Employee Deleted from table");
+    })
+})
 
-    }
-    else{
-        console.log("connection with mysql successful");
-    }
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`);
 });
