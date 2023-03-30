@@ -4,6 +4,6 @@
 // Assignment number/name: hw5
 
 
-$.get('/index/data', function(data) {
+$.get('/users', function(data) {
     console.log(data.message);
   });

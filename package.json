@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/stenaz/Entp201/issues"
   },
-  "homepage": "https://github.com/stenaz/Entp201#readme"
+  "homepage": "https://github.com/stenaz/Entp201#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
 }
