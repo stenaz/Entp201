@@ -4,13 +4,16 @@
 // Assignment number/name: hw5
 
 const express = require("express");
-// const path = require("path");
 const fs = require("fs");
 const app = express();
+const {routes} = require('./server/index');
 
-const apiRouter = require('./server/index.js');
-app.use('/index', apiRouter); //puts specific middleware functions at specified path
-app.use(express.static('components'));
+app.use('/users', routes);
+// Start app
+app.listen(4000, function() {
+  console.log('App started on port 4000');
+});
+
 
 
 
@@ -19,4 +22,3 @@ app.use(express.static('components'));
 //   res.end("Invalid Request.");
 // });
 
-// app.listen(3000);

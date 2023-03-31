@@ -10,43 +10,37 @@ var router = express.Router();
 var cors = require("cors");
 
 const db = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
-    user: "root",
-    password: process.env.DB_PASSWORD,
-    database: "profile",
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: process.env.DB_PASSWORD,
+  database: "profile",
 });
-
-// router.get('/data', (req, res) =>{
-//     const data = {
-//         message: "Hello from the server"
-//     };
-//     res.json(data);
-// });
-// module.exports = router;
 
 //router for obtaining all user information
-app.get("/users", (req, res) =>{
-    let sqlquery = "Select * from user";
-    db.query(sqlquery, (err, results) =>{
-        if(err){
-            throw err;
-        }
-        res.send(results);
-    })
+router.app.get("/users", (req, res) => {
+  let sqlquery = "Select * from user";
+  db.query(sqlquery, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.send(results);
+  });
 });
+
 //localhost:3000/deleteuser/1
 //router for deleting user information
-app.get("/deleteuser/:ids", (req, res) =>{
-    let sqlquery = `Delete From user where id = ${req.params.ids}`;
-    let query = db.query(sqlquery, err => {
-        if(err){
-            throw err;
-        }
-        res.send("Employee Deleted from table");
-    })
-})
+router.app.get("/deleteuser/:ids", (req, res) => {
+  let sqlquery = `Delete From user where id = ${req.params.ids}`;
+  let query = db.query(sqlquery, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.send("Employee Deleted from table");
+  });
+});
 
+module.exports = router;
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
