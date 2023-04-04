@@ -1,18 +1,61 @@
-// Name: Steven Nazaroff
-// Email: stn223@lehigh.edu
-// Class number: CSE 264
-// Assignment number/name: hw5
+// const express = require("express");
+// const fs = require("fs");
+// const app = express();
+// const {routes} = require('./server/index');
+
+// app.use('/users', routes);
+// // Start app
+// app.listen(4000, function() {
+//   console.log('App started on port 4000');
+// });
+
 
 const express = require("express");
+const path = require("path");
 const fs = require("fs");
 const app = express();
-const {routes} = require('./server/index');
+const mysql = require("mysql");
 
-app.use('/users', routes);
-// Start app
-app.listen(4000, function() {
-  console.log('App started on port 4000');
+require("dotenv").config();
+const port = process.env.Port || 3000; //setting static port value (3,000)
+var router = express.Router();
+var cors = require("cors");
+
+const db = mysql.createConnection({
+  host: "localhost",
+  port: 3306,
+  user: "root",
+  password: process.env.DB_PASSWORD,
+  database: "profile",
 });
+
+//router for obtaining all user information
+app.get("/users", (req, res) => {
+  let sqlquery = "Select * from user";
+  db.query(sqlquery, (err, results) => {
+    if (err) {
+      throw err;
+    }
+    res.send(results);
+  });
+});
+
+//localhost:3000/deleteuser/1
+//router for deleting user information
+app.get("/deleteuser/:ids", (req, res) => {
+  let sqlquery = `Delete From user where id = ${req.params.ids}`;
+  let query = db.query(sqlquery, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.send("Employee Deleted from table");
+  });
+});
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`);
+});
+
 
 
 

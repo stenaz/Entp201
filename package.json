@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/stenaz/Entp201#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "mysql": "^2.18.1"
   }
 }
