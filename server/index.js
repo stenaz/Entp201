@@ -17,20 +17,23 @@ const db = mysql.createConnection({
   database: "profile",
 });
 
-//router for obtaining all user information
-router.app.get("/users", (req, res) => {
-  let sqlquery = "Select * from user";
-  db.query(sqlquery, (err, results) => {
-    if (err) {
-      throw err;
-    }
-    res.send(results);
+const routes = (req, res, next) => {
+  req.app.get("/users", (req, res) => {
+    let sqlquery = "Select * from user";
+    db.query(sqlquery, (err, results) => {
+      if (err) {
+        throw err;
+      }
+      res.send(results);
+    });
   });
-});
+  next();
+}
+//router for obtaining all user information
 
 //localhost:3000/deleteuser/1
 //router for deleting user information
-router.app.get("/deleteuser/:ids", (req, res) => {
+app.get("/deleteuser/:ids", (req, res) => {
   let sqlquery = `Delete From user where id = ${req.params.ids}`;
   let query = db.query(sqlquery, (err) => {
     if (err) {
@@ -40,7 +43,11 @@ router.app.get("/deleteuser/:ids", (req, res) => {
   });
 });
 
-module.exports = router;
+// module.routes = routes;
+module.exports = {
+  routes: routes
+};
+
 app.listen(port, () => {
   console.log(`App running on port ${port}.`);
 });
